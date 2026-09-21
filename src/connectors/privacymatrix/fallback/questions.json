@@ -1,0 +1,137 @@
+{
+  "values": {
+    "yes": "The privacy-protective practice is stated in the vendor's official documents for the consumer plan by default, without material qualification.",
+    "partial": "Stated, but qualified: applies only to some plans, regions, products or data types; requires the user to act (a setting, a request); is time-limited; or the documents contradict each other.",
+    "no": "The documents state the less protective practice (for example, conversations are used for training by default, or no deletion is possible).",
+    "unknown": "The documents do not address the question, or the evidence quote could not be verified against the source. Silence is never read as either a protection or a violation."
+  },
+  "conventions": [
+    "Score the consumer product as its documents describe it today. If older documents describing a different behaviour are still published, score the current version and record the older one in the notes.",
+    "Statements about business, team, enterprise or API plans never decide a consumer cell (except business_no_training). If the consumer documents are silent, the cell is unknown.",
+    "For products with several components that a default consumer user is exposed to (for example a device assistant and its cloud extension), score the least protective component and describe the differences in the notes.",
+    "A vendor statement that conversation content is never stored on its servers, or that the vendor has no access to it, is treated as an explicit statement wherever a rubric below says so; it is not silence.",
+    "Where a practice does not apply (the product has no accounts, no uploads, no business offering), the cell is unknown and the notes say why; unknown is never a penalty."
+  ],
+  "groups": [
+    {
+      "id": "training",
+      "name": "Training"
+    },
+    {
+      "id": "control",
+      "name": "User control"
+    },
+    {
+      "id": "retention",
+      "name": "Retention"
+    },
+    {
+      "id": "sharing",
+      "name": "Sharing and review"
+    },
+    {
+      "id": "collection",
+      "name": "Collection and rights"
+    }
+  ],
+  "questions": [
+    {
+      "id": "no_training_default",
+      "group": "training",
+      "name": "Chats excluded from training by default",
+      "question": "Are a consumer user's conversations excluded from training or improving the vendor's models by default, without the user changing a setting?",
+      "rubric": "YES if the documents state that conversations of consumer users are not used to train or improve models unless the user opts in, or that the vendor never stores or has no access to conversation content. PARTIAL if exclusion applies only to some plans (for example paid consumer tiers), some regions or some data types; if training is on by default for some users and off for others; if the vendor itself does not train but says third-party model providers it routes to may; or if the documents grant a licence to use conversation content to improve the services without saying whether that includes models (say so in the notes, confidence low). NO if consumer conversations are used by default to train or improve models, including internal classifiers or safety models. UNKNOWN if the consumer documents do not say; statements about business or API plans do not count."
+    },
+    {
+      "id": "training_opt_out",
+      "group": "training",
+      "name": "Training opt-out for individuals",
+      "question": "Can an individual consumer user stop their conversations from being used for training?",
+      "rubric": "YES if a documented self-service setting exists (a setting that stops training on new conversations from that point on still counts; note whether earlier conversations are covered), or if conversations are never used for training so no opt-out is needed (say so in the notes). PARTIAL if the opt-out requires contacting the vendor or submitting a form; applies only in some regions; disables other features (for example chat history) as a side effect; is available only by choosing certain models, bots or paid plans; or exists only as a legal right to object that the documents tie to training. NO if the documents state training cannot be avoided, or if training is on by default and the documents describe no way to stop it; deleting stored data is not an opt-out. UNKNOWN if the training default itself is unknown and no opt-out is mentioned."
+    },
+    {
+      "id": "uploads_excluded",
+      "group": "training",
+      "name": "Uploaded files excluded from training",
+      "question": "Are files, images and documents the user uploads excluded from training by default?",
+      "rubric": "YES if uploads are excluded from training by default, either named explicitly or covered by a blanket statement that no user content or data is used for training. PARTIAL if uploads are used for training by default but a documented opt-out that the documents tie to training (self-service or by request) covers them; if only some upload types are covered; or if the sibling question no_training_default is partial because the documents grant a licence to improve the services without saying whether that includes models. NO if uploads are used for training with no opt-out. UNKNOWN if uploads are not mentioned and no blanket statement exists, or if the product does not accept uploads (say so in the notes)."
+    },
+    {
+      "id": "business_no_training",
+      "group": "training",
+      "name": "Business and API data not used for training",
+      "question": "For the vendor's business, team, enterprise or API offerings, is customer data excluded from training by default?",
+      "rubric": "YES if the documents (contract terms or official help pages) state that business, enterprise, team or API customer data is not used for training by default. PARTIAL if only some of these offerings are covered, exclusion requires a contract term or setting, or the vendor itself does not train but third-party model providers used by the offering may. NO if such data is used by default, or the documents list API or developer data as a training source without an exclusion. UNKNOWN if the vendor has no such offering or the documents do not address it (say which in the notes)."
+    },
+    {
+      "id": "temporary_chat",
+      "group": "control",
+      "name": "Temporary or incognito chat",
+      "question": "Is there a documented temporary, incognito or history-off mode whose conversations are not saved to history and not used for training?",
+      "rubric": "YES if such a mode exists on the main web and mobile apps and its conversations are neither kept in history nor used for training, with any safety-retention period of 30 days or less; also YES if the vendor states that conversation content is never stored on its servers, so every chat already meets the condition (say so in the notes). PARTIAL if the mode exists but conversations may still be used for training, are retained longer than 30 days by the vendor or by model providers the vendor discloses, or the mode is limited to some plans; or if the only history-off option is an account-level setting rather than a per-chat mode. NO if the documents state that no such mode exists, or make a product-level statement that everything shared with the assistant is stored until the user deletes it; a retention-period disclosure alone is not such a statement. UNKNOWN if not addressed."
+    },
+    {
+      "id": "memory_controls",
+      "group": "control",
+      "name": "Memory can be inspected and switched off",
+      "question": "If the app keeps memory about the user across conversations, can the user view, delete and turn off that memory?",
+      "rubric": "YES if the vendor states that the product does not remember anything across conversations, or if automatically generated memory can be viewed, deleted (item by item, or by editing and clearing a viewable memory summary) and turned off entirely. User-typed preference or custom-instruction fields are not memory for this question. PARTIAL if only some of view, delete and turn-off are documented; if memory can only be cleared all at once or only by deleting the source chats; if controls exist only on some platforms; or if a documented part of the memory cannot be inspected. NO if memory is kept and cannot be turned off or deleted. UNKNOWN if memory is not mentioned (silence never means there is no memory feature), or if a memory feature is documented but none of its controls are (say so in the notes)."
+    },
+    {
+      "id": "user_deletion",
+      "group": "control",
+      "name": "Self-service deletion of chats and account",
+      "question": "Can the user delete individual conversations and their whole account themselves, inside the product?",
+      "rubric": "YES if both individual conversation deletion (message-level deletion counts for single-thread apps) and account deletion are self-service; for products without accounts, YES if conversation deletion is self-service (say so in the notes). PARTIAL if only one of the two is self-service, if either requires a request to the vendor, or if conversation content can only be removed by deleting the account. NO if neither is possible. UNKNOWN if not addressed."
+    },
+    {
+      "id": "data_export",
+      "group": "control",
+      "name": "Self-service data export",
+      "question": "Can the user export their conversations and account data themselves?",
+      "rubric": "YES if a self-service export of conversations exists in the product, or conversations are stored only on the user's device and the documents describe how to copy or export them. PARTIAL if data is provided only on request (a data-access request), or the export excludes conversations. NO if no export or access is offered. UNKNOWN if not addressed."
+    },
+    {
+      "id": "deletion_timeline",
+      "group": "retention",
+      "name": "Deleted chats purged within 30 days",
+      "question": "When a user deletes a conversation or account, do the documents commit to removing it from the vendor's systems within 30 days, apart from legal or safety holds?",
+      "rubric": "YES if a period of 30 days or less is stated, or deletion is described as immediate (for example 'deleted when the conversation is deleted'), or the vendor states that conversation content is never stored on its servers; exceptions must be limited to legal, security or safety obligations. PARTIAL if a longer fixed period is stated (a reactivation grace period counts as part of the period); if the period is stated only for some data (account but not chats, one mode only, inputs but not outputs); if the exceptions are broad (backups without a purge period, 'legitimate business purposes', or keeping de-identified copies for training); or if the documents contradict each other. NO if the documents state that deleted data is retained indefinitely or that deletion only hides the data. UNKNOWN if no period is stated."
+    },
+    {
+      "id": "no_ads_use",
+      "group": "sharing",
+      "name": "Chats not used for advertising",
+      "question": "Do the documents state that conversation content is not used to target or personalise advertising?",
+      "rubric": "YES if the documents state that conversation content is not used for advertising; or the product shows no ads and the documents limit the use of conversation content to providing the service (no marketing use); or the vendor states it never stores or has no access to conversation content. Use of cookies, identifiers or account data (not conversation content) for the vendor's own marketing does not count against this question. PARTIAL if ads exist and conversation content is excluded only with exceptions, only in some regions, or only for some plans. NO if conversation content is used to select or personalise advertising. UNKNOWN if not addressed."
+    },
+    {
+      "id": "no_sale_sharing",
+      "group": "sharing",
+      "name": "No sale or sharing for third-party marketing",
+      "question": "Do the documents state that the vendor does not sell personal data or share it with third parties for their own marketing?",
+      "rubric": "YES if the documents state that the vendor does not sell personal data and does not share it for third-party marketing, including under the 'sell' and 'share' definitions of US state privacy laws; sharing with processors acting on the vendor's behalf does not count against this, and a statement scoped to those legal definitions but offered to all users counts as YES. PARTIAL if the vendor discloses that it sells or shares (under those definitions) through advertising cookies or partners, even for its own advertising, and offers an opt-out; or if the statement is limited to some jurisdictions (for example a California-only notice). NO if personal data is sold or shared for third-party marketing without an opt-out, or conversation content is disclosed to advertising partners. UNKNOWN if not addressed."
+    },
+    {
+      "id": "human_review_limited",
+      "group": "sharing",
+      "name": "Human review disclosed and limited",
+      "question": "Do the documents disclose whether vendor staff or contractors can read conversations, and limit that to specific cases?",
+      "rubric": "YES if the documents state that conversations are not read by humans, or that human access happens only in specific cases such as safety, abuse, legal requests, support requests initiated by the user, content the user reported or feedback the user submitted; or if the vendor states it never stores or has no access to conversation content. PARTIAL if human access is also disclosed for broader purposes such as quality, service improvement or model training, or the limits are vague; review of feedback the user chose to submit does not demote even when the vendor uses it to improve the product. A generic reserved right in the terms to review or remove content is not a disclosure of human access and leaves the cell unknown. NO if the documents state conversations are routinely reviewed by humans without stated limits. UNKNOWN if human access is not mentioned."
+    },
+    {
+      "id": "no_precise_location",
+      "group": "collection",
+      "name": "No precise location collection",
+      "question": "Do the documents state that precise geolocation is not collected, or collected only with explicit permission for a specific feature?",
+      "rubric": "YES if the documents state that precise location is not collected, or describe the location data collected as only approximate (derived from IP address, city or region level) with no precise or GPS collection mentioned anywhere in the documents. PARTIAL if precise location is collected only with the user's explicit device permission, which can be declined, whatever it is then used for. NO if precise location is collected as part of normal use without a permission gate. UNKNOWN if location is not mentioned, or is mentioned without saying whether it is precise or approximate."
+    },
+    {
+      "id": "rights_channel",
+      "group": "collection",
+      "name": "Documented channel for data rights",
+      "question": "Do the documents give a concrete way to exercise data rights such as access, deletion or portability, available to all users?",
+      "rubric": "YES if a privacy portal, form, in-product control or designated address (a privacy address, or a mailbox the documents name for rights requests, even if it is also used for support) is documented for exercising rights and offered to all users; a 'depending on where you live you may have rights' hedge does not demote when the channel itself is offered to everyone. PARTIAL if a channel is documented only for some jurisdictions (for example EU or California residents), if only a generic contact address not designated for rights requests is given, or if in-product controls cover only some rights and no channel exists for the rest. NO if the documents state that such requests are not accepted. UNKNOWN if not addressed."
+    }
+  ]
+}

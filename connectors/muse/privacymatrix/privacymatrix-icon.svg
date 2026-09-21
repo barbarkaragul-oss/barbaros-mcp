@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#111116"/>
+      <stop offset="1" stop-color="#0a0a0c"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="96" fill="url(#bg)"/>
+  <!-- 3x3 matrix of cells: privacy-answer grid motif -->
+  <g>
+    <rect x="120" y="120" width="76" height="76" rx="14" fill="#6ee7b7"/>
+    <rect x="218" y="120" width="76" height="76" rx="14" fill="#818cf8" opacity="0.55"/>
+    <rect x="316" y="120" width="76" height="76" rx="14" fill="#818cf8" opacity="0.3"/>
+    <rect x="120" y="218" width="76" height="76" rx="14" fill="#818cf8" opacity="0.55"/>
+    <rect x="218" y="218" width="76" height="76" rx="14" fill="#6ee7b7"/>
+    <rect x="316" y="218" width="76" height="76" rx="14" fill="#f472b6" opacity="0.4"/>
+    <rect x="120" y="316" width="76" height="76" rx="14" fill="#818cf8" opacity="0.3"/>
+    <rect x="218" y="316" width="76" height="76" rx="14" fill="#f472b6" opacity="0.4"/>
+    <rect x="316" y="316" width="76" height="76" rx="14" fill="#6ee7b7"/>
+  </g>
+  <!-- small lock motif centered on the middle cell, echoing "privacy" -->
+  <g transform="translate(256,256)">
+    <rect x="-20" y="-4" width="40" height="32" rx="6" fill="#0a0a0c"/>
+    <path d="M -12 -4 v -10 a 12 12 0 0 1 24 0 v 10" fill="none" stroke="#0a0a0c" stroke-width="7"/>
+  </g>
+</svg>

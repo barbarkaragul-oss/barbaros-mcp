@@ -1,0 +1,7 @@
+node_modules/
+*.log
+.env
+
+# dist/ is intentionally committed: the VPS deploy runs `npm ci --omit=dev`
+# with no build step, so the compiled output must already be in git.
+# Rebuild and commit dist/ again whenever src/ changes.

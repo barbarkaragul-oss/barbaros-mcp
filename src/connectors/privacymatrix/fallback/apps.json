@@ -1,0 +1,438 @@
+{
+  "apps": [
+    {
+      "id": "chatgpt",
+      "name": "ChatGPT",
+      "vendor": "OpenAI",
+      "homepage": "https://chatgpt.com",
+      "repo": null,
+      "sources": [
+        "https://openai.com/policies/privacy-policy/",
+        "https://help.openai.com/en/articles/5722486-how-your-data-is-used-to-improve-model-performance",
+        "https://help.openai.com/en/articles/8555545-file-uploads-faq",
+        "https://help.openai.com/en/articles/8590148-memory-faq",
+        "https://help.openai.com/en/articles/6378407-how-can-i-delete-my-account",
+        "https://help.openai.com/en/articles/7260999-how-do-i-export-my-chatgpt-history-and-data",
+        "https://help.openai.com/en/articles/20001047-ads-in-chatgpt",
+        "https://openai.com/transparency-and-content-moderation/"
+      ]
+    },
+    {
+      "id": "claude",
+      "name": "Claude",
+      "vendor": "Anthropic",
+      "homepage": "https://claude.ai",
+      "repo": null,
+      "sources": [
+        "https://www.anthropic.com/legal/privacy",
+        "https://privacy.claude.com/en/articles/7996868-is-my-data-used-for-model-training",
+        "https://support.claude.com/en/articles/12260368-use-incognito-chats",
+        "https://support.claude.com/en/articles/11817273-use-claude-s-chat-search-and-memory-to-build-on-previous-context",
+        "https://privacy.claude.com/en/articles/10023660-deleting-claude-accounts",
+        "https://privacy.claude.com/en/articles/9450526-export-your-claude-data",
+        "https://privacy.claude.com/en/articles/10023555-how-do-you-use-personal-data-in-model-training",
+        "https://privacy.claude.com/en/articles/10458704-how-does-anthropic-protect-the-personal-data-of-claude-users"
+      ]
+    },
+    {
+      "id": "gemini",
+      "name": "Gemini",
+      "vendor": "Google",
+      "homepage": "https://gemini.google.com",
+      "repo": null,
+      "sources": [
+        "https://support.google.com/gemini/answer/13594961",
+        "https://policies.google.com/privacy",
+        "https://policies.google.com/technologies/retention?hl=en-US",
+        "https://support.google.com/gemini/answer/13278892?hl=en",
+        "https://support.google.com/gemini/answer/13275745?hl=en",
+        "https://support.google.com/gemini/answer/16598469?hl=en",
+        "https://support.google.com/a/answer/15706919?hl=en",
+        "https://ai.google.dev/gemini-api/terms"
+      ]
+    },
+    {
+      "id": "copilot",
+      "name": "Microsoft Copilot",
+      "vendor": "Microsoft",
+      "homepage": "https://copilot.microsoft.com",
+      "repo": null,
+      "sources": [
+        "https://privacy.microsoft.com/en-us/privacystatement",
+        "https://support.microsoft.com/en-us/privacy/microsoft-copilot/privacy-controls",
+        "https://support.microsoft.com/en-us/privacy/microsoft-copilot/activity-history",
+        "https://support.microsoft.com/en-us/privacy/manage-your-copilot-activity-history-in-the-privacy-dashboard",
+        "https://support.microsoft.com/en-us/microsoft-copilot/privacy-faq-for-microsoft-copilot",
+        "https://learn.microsoft.com/en-us/copilot/microsoft-365/microsoft-365-copilot-privacy",
+        "https://learn.microsoft.com/en-us/copilot/microsoft-365/enterprise-data-protection",
+        "https://support.microsoft.com/en-us/account-billing/how-to-close-your-microsoft-account-c1b2d13f-4de6-6e1b-4a31-d9d668849979"
+      ]
+    },
+    {
+      "id": "perplexity",
+      "name": "Perplexity",
+      "vendor": "Perplexity AI, Inc.",
+      "homepage": "https://www.perplexity.ai",
+      "repo": null,
+      "sources": [
+        "https://www.perplexity.ai/hub/legal/privacy-notice",
+        "https://www.perplexity.ai/help-center/en/articles/11564572-data-collection-at-perplexity",
+        "https://www.perplexity.ai/help-center/en/articles/10968016-memory",
+        "https://www.perplexity.ai/help-center/en/articles/11564562-self-serve-data-deletion",
+        "https://www.perplexity.ai/help-center/en/articles/11564568-gdpr-compliance-at-perplexity",
+        "https://www.perplexity.ai/help-center/en/articles/10354873-how-long-does-perplexity-retain-my-search-history-profile-data-and-personal-information",
+        "https://www.perplexity.ai/help-center/en/articles/10354810-security-and-privacy-with-file-uploads",
+        "https://www.perplexity.ai/hub/legal/enterprise-terms-of-service"
+      ]
+    },
+    {
+      "id": "grok",
+      "name": "Grok",
+      "vendor": "xAI (SpaceXAI LLC)",
+      "homepage": "https://grok.com",
+      "repo": null,
+      "sources": [
+        "https://x.ai/legal/privacy-policy",
+        "https://x.ai/legal/faq",
+        "https://x.ai/legal/terms-of-service",
+        "https://x.ai/legal/terms-of-service-enterprise",
+        "https://x.ai/legal/europe-privacy-policy-addendum",
+        "https://x.ai/legal/ccpa"
+      ]
+    },
+    {
+      "id": "meta-ai",
+      "name": "Meta AI",
+      "vendor": "Meta Platforms, Inc.",
+      "homepage": "https://www.meta.ai",
+      "repo": null,
+      "sources": [
+        "https://mbasic.facebook.com/privacy/policy/printable/?locale=en_US",
+        "https://mbasic.facebook.com/privacy/genai/?locale=en_US",
+        "https://mbasic.facebook.com/legal/ai-terms?locale=en_US",
+        "https://about.fb.com/news/2023/09/privacy-matters-metas-generative-ai-features/",
+        "https://mbasic.facebook.com/legal/eu-ai-terms?locale=en_US"
+      ]
+    },
+    {
+      "id": "deepseek",
+      "name": "DeepSeek",
+      "vendor": "DeepSeek",
+      "homepage": "https://chat.deepseek.com",
+      "repo": null,
+      "sources": [
+        "https://cdn.deepseek.com/policies/en-US/deepseek-privacy-policy.html",
+        "https://cdn.deepseek.com/policies/en-US/deepseek-terms-of-use.html",
+        "https://cdn.deepseek.com/policies/en-US/deepseek-open-platform-terms-of-service.html",
+        "https://cdn.deepseek.com/policies/en-US/model-algorithm-disclosure.html"
+      ]
+    },
+    {
+      "id": "le-chat",
+      "name": "Vibe (Le Chat)",
+      "vendor": "Mistral AI",
+      "homepage": "https://chat.mistral.ai",
+      "repo": null,
+      "sources": [
+        "https://legal.mistral.ai/terms/privacy-policy",
+        "https://legal.mistral.ai/terms/row-consumer-terms",
+        "https://legal.mistral.ai/terms/eu-consumers-terms-of-service",
+        "https://legal.mistral.ai/terms/commercial-terms-of-service",
+        "https://help.mistral.ai/en/articles/455207-can-i-opt-out-of-my-input-or-output-data-being-used-for-training",
+        "https://help.mistral.ai/en/articles/347633-do-you-use-my-conversations-with-vibe-to-show-me-ads",
+        "https://help.mistral.ai/en/articles/347615-do-you-sell-or-share-my-data-for-marketing",
+        "https://help.mistral.ai/en/articles/347632-can-other-people-view-my-conversations"
+      ]
+    },
+    {
+      "id": "character-ai",
+      "name": "Character.AI",
+      "vendor": "Character Technologies, Inc.",
+      "homepage": "https://character.ai",
+      "repo": null,
+      "sources": [
+        "https://character.ai/_next/static/chunks/pages/privacy-645bfcb925495ab4.js",
+        "https://character.ai/_next/static/chunks/pages/regional-d6d1e02db80cf5eb.js",
+        "https://support.character.ai/api/v2/help_center/en-us/articles/42788047758747.json",
+        "https://support.character.ai/api/v2/help_center/en-us/articles/30299431702555.json",
+        "https://support.character.ai/api/v2/help_center/en-us/articles/15063461160475.json",
+        "https://support.character.ai/api/v2/help_center/en-us/articles/47703013822875.json",
+        "https://support.character.ai/api/v2/help_center/en-us/articles/15063996838299.json"
+      ]
+    },
+    {
+      "id": "poe",
+      "name": "Poe",
+      "vendor": "Quora, Inc.",
+      "homepage": "https://poe.com",
+      "repo": null,
+      "sources": [
+        "https://poe.com/pages/privacy",
+        "https://poe.com/pages/privacy-center",
+        "https://poe.com/pages/tos",
+        "https://help.poe.com/api/v2/help_center/en-us/articles/19944206309524.json",
+        "https://poe.com/api_terms"
+      ]
+    },
+    {
+      "id": "pi",
+      "name": "Pi",
+      "vendor": "Inflection AI, Inc.",
+      "homepage": "https://pi.ai",
+      "repo": null,
+      "sources": [
+        "https://inflection.ai/privacy-policy",
+        "https://inflection.ai/terms-of-service",
+        "https://inflection.ai/transparency-and-content-moderation",
+        "https://inflection.ai/notice-on-model-training",
+        "https://help.pi.ai/en/articles/15425697-pi-s-memory",
+        "https://help.pi.ai/en/articles/12988158-export-and-share-chat-history-safely-with-limits-and-tips",
+        "https://help.pi.ai/en/articles/13147175-how-do-i-delete-my-pi-account-and-all-my-data",
+        "https://help.pi.ai/en/articles/13147185-how-is-my-data-used-and-how-can-i-control-my-privacy-and-tracking"
+      ]
+    },
+    {
+      "id": "you-com",
+      "name": "You.com",
+      "vendor": "SuSea, Inc. (d/b/a You.com)",
+      "homepage": "https://you.com",
+      "repo": null,
+      "sources": [
+        "https://you.com/privacy",
+        "https://you.com/terms",
+        "https://you.com/privacy-requests",
+        "https://you.com/docs/administration/zero-data-retention",
+        "https://45321510.fs1.hubspotusercontent-na1.net/hubfs/45321510/Legal/You.com%20MSA%20(Online)%20(December%202025).pdf",
+        "https://45321510.fs1.hubspotusercontent-na1.net/hubfs/45321510/Legal/You.com%20Platform%20Data%20Security%20Overview%20(May%202025).pdf"
+      ]
+    },
+    {
+      "id": "kimi",
+      "name": "Kimi",
+      "vendor": "Moonshot AI",
+      "homepage": "https://www.kimi.ai",
+      "repo": null,
+      "sources": [
+        "https://www.kimi.ai/user/agreement/userPrivacy?version=v2",
+        "https://www.kimi.ai/user/agreement/modelUse?version=v2",
+        "https://www.kimi.ai/help/features/memory-space",
+        "https://www.kimi.ai/help/others/account-deletion",
+        "https://www.kimi.ai/help/others/chat-issues",
+        "https://www.kimi.ai/help/kimi-api/api-data-security",
+        "https://www.kimi.ai/help/kimi-business/kimi-business"
+      ]
+    },
+    {
+      "id": "qwen-chat",
+      "name": "Qwen Chat",
+      "vendor": "Alibaba Cloud",
+      "homepage": "https://chat.qwen.ai",
+      "repo": null,
+      "sources": [
+        "https://g.alicdn.com/qwenweb/qwen-ai-fe/0.0.79/js/p_privacypolicy-index.js",
+        "https://g.alicdn.com/qwenweb/qwen-ai-fe/0.0.79/js/p_termsservice-index.js",
+        "https://www.alibabacloud.com/help/en/model-studio/what-is-model-studio"
+      ]
+    },
+    {
+      "id": "duck-ai",
+      "name": "Duck.ai",
+      "vendor": "DuckDuckGo",
+      "homepage": "https://duck.ai",
+      "repo": null,
+      "sources": [
+        "https://duckduckgo.com/duckai/privacy-terms",
+        "https://duckduckgo.com/privacy",
+        "https://duckduckgo.com/duckduckgo-help-pages/duckai/ai-chat-privacy",
+        "https://duckduckgo.com/duckduckgo-help-pages/duckai/recent-chats",
+        "https://duckduckgo.com/duckduckgo-help-pages/what-information-does-duckai-share-with-model-providers",
+        "https://duckduckgo.com/duckduckgo-help-pages/r-legal/privacy-rights",
+        "https://duckduckgo.com/pro/privacy-terms/us"
+      ]
+    },
+    {
+      "id": "brave-leo",
+      "name": "Brave Leo AI",
+      "vendor": "Brave Software, Inc.",
+      "homepage": "https://brave.com/leo/",
+      "repo": null,
+      "sources": [
+        "https://brave.com/privacy/browser/",
+        "https://brave.com/leo/",
+        "https://brave.com/terms-of-use/",
+        "https://brave.com/privacy/ccpa/"
+      ]
+    },
+    {
+      "id": "lumo",
+      "name": "Lumo",
+      "vendor": "Proton AG",
+      "homepage": "https://lumo.proton.me",
+      "repo": null,
+      "sources": [
+        "https://proton.me/lumo/privacy-policy",
+        "https://proton.me/lumo/terms",
+        "https://proton.me/support/lumo-privacy",
+        "https://proton.me/support/lumo-memory",
+        "https://proton.me/lumo/security",
+        "https://proton.me/lumo",
+        "https://proton.me/business/lumo",
+        "https://proton.me/support/lumo-getting-started"
+      ]
+    },
+    {
+      "id": "huggingchat",
+      "name": "HuggingChat",
+      "vendor": "Hugging Face, Inc.",
+      "homepage": "https://huggingface.co/chat",
+      "repo": "https://github.com/huggingface/chat-ui",
+      "sources": [
+        "https://huggingface.co/privacy",
+        "https://huggingface.co/terms-of-service",
+        "https://raw.githubusercontent.com/huggingface/chat-ui/main/PRIVACY.md",
+        "https://huggingface.co/docs/inference-providers/security"
+      ]
+    },
+    {
+      "id": "replika",
+      "name": "Replika",
+      "vendor": "Luka, Inc.",
+      "homepage": "https://replika.com",
+      "repo": null,
+      "sources": [
+        "https://replika.com/legal/privacy",
+        "https://replika.com/legal/terms",
+        "https://help.replika.com/api/v2/help_center/en-us/articles/360000874712.json",
+        "https://help.replika.com/api/v2/help_center/en-us/articles/37208679176077.json",
+        "https://help.replika.com/api/v2/help_center/en-us/articles/4410750548493.json",
+        "https://help.replika.com/api/v2/help_center/en-us/articles/115001070971.json",
+        "https://help.replika.com/api/v2/help_center/en-us/articles/360000885332.json",
+        "https://help.replika.com/api/v2/help_center/en-us/articles/37171427757069.json"
+      ]
+    },
+    {
+      "id": "apple-intelligence",
+      "name": "Apple Intelligence / Siri",
+      "vendor": "Apple",
+      "homepage": "https://www.apple.com/apple-intelligence/",
+      "repo": null,
+      "sources": [
+        "https://www.apple.com/legal/privacy/data/en/intelligence-engine/",
+        "https://www.apple.com/legal/privacy/data/en/ask-siri-dictation/",
+        "https://www.apple.com/legal/privacy/en-ww/",
+        "https://www.apple.com/legal/privacy/data/en/improve-siri-dictation/",
+        "https://www.apple.com/legal/privacy/data/en/chatgpt-extension/",
+        "https://support.apple.com/en-us/HT208502",
+        "https://support.apple.com/en-us/102283"
+      ]
+    },
+    {
+      "id": "alexa-plus",
+      "name": "Alexa+",
+      "vendor": "Amazon",
+      "homepage": "https://www.amazon.com/alexaplus",
+      "repo": null,
+      "sources": [
+        "https://www.amazon.com/Alexa-Privacy-Hub/b?ie=UTF8&node=19149155011",
+        "https://www.amazon.com/b/?node=23608617011",
+        "https://www.amazon.com/b/?node=23608614011",
+        "https://www.aboutamazon.com/news/devices/alexa-plus-international-launch",
+        "https://www.aboutamazon.com/news/devices/new-alexa-generative-artificial-intelligence",
+        "https://www.aboutamazon.com/news/devices/alexa-plus-available-free-prime-members-us"
+      ]
+    },
+    {
+      "id": "snapchat-my-ai",
+      "name": "Snapchat My AI",
+      "vendor": "Snap Inc.",
+      "homepage": "https://www.snapchat.com",
+      "repo": null,
+      "sources": [
+        "https://values.snap.com/privacy/privacy-policy",
+        "https://values.snap.com/privacy/privacy-by-product",
+        "https://values.snap.com/privacy/privacy-policy/us-state-privacy-notice",
+        "https://values.snap.com/privacy/ads-privacy",
+        "https://help.snapchat.com/hc/en-us/articles/13889139811860",
+        "https://help.snapchat.com/hc/en-us/articles/18937378754324",
+        "https://help.snapchat.com/hc/en-us/articles/7012334940948",
+        "https://help.snapchat.com/hc/en-us/articles/7012328360596"
+      ]
+    },
+    {
+      "id": "kagi-assistant",
+      "name": "Kagi Assistant",
+      "vendor": "Kagi Inc.",
+      "homepage": "https://kagi.com/assistant",
+      "repo": null,
+      "sources": [
+        "https://kagi.com/privacy",
+        "https://kagi.com/privacy/rights",
+        "https://help.kagi.com/kagi/ai/assistant.html",
+        "https://help.kagi.com/kagi/ai/llms-privacy.html",
+        "https://help.kagi.com/kagi/settings/privacy.html",
+        "https://help.kagi.com/kagi/settings/delete-account.html",
+        "https://help.kagi.com/kagi/plans/team-plan.html"
+      ]
+    },
+    {
+      "id": "venice",
+      "name": "Venice",
+      "vendor": "Venice.ai, Inc.",
+      "homepage": "https://venice.ai",
+      "repo": null,
+      "sources": [
+        "https://venice.ai/legal/privacy-policy",
+        "https://venice.ai/legal/tos",
+        "https://venice.ai/privacy",
+        "https://docs.venice.ai/overview/privacy",
+        "https://venice.ai/faqs",
+        "https://venice.ai/blog/venice-memoria-technical-overview",
+        "https://venice.ai/blog/venice-launches-end-to-end-encrypted-ai"
+      ]
+    },
+    {
+      "id": "manus",
+      "name": "Manus",
+      "vendor": "Butterfly Effect Pte. Ltd.",
+      "homepage": "https://manus.im",
+      "repo": null,
+      "sources": [
+        "https://files.manuscdn.com/webapp/_next/static/chunks/28lq3ui3tovcp.js",
+        "https://files.manuscdn.com/webapp/_next/static/chunks/20ao8cskg9oth.js",
+        "https://help.manus.im/en/articles/11711823-will-my-personal-data-be-deleted-after-i-delete-my-account",
+        "https://help.manus.im/en/articles/11711929-who-can-see-my-tasks",
+        "https://help.manus.im/en/articles/13125514-do-i-own-the-assets-websites-images-videos-slides-generated-via-manus"
+      ]
+    },
+    {
+      "id": "genspark",
+      "name": "Genspark",
+      "vendor": "MainFunc Inc.",
+      "homepage": "https://www.genspark.ai",
+      "repo": null,
+      "sources": [
+        "https://www.genspark.ai/privacy",
+        "https://www.genspark.ai/terms",
+        "https://www.genspark.ai/helpcenter/team-enterprise-plans",
+        "https://www.genspark.ai/helpcenter/account-management",
+        "https://www.genspark.ai/helpcenter/secondbrain",
+        "https://www.genspark.ai/helpcenter/troubleshooting-guide",
+        "https://www.genspark.ai/business"
+      ]
+    },
+    {
+      "id": "z-ai",
+      "name": "Z.ai",
+      "vendor": "Zhipu AI (Z.ai)",
+      "homepage": "https://chat.z.ai",
+      "repo": null,
+      "sources": [
+        "https://docs.z.ai/legal-agreement/privacy-policy.md",
+        "https://docs.z.ai/legal-agreement/terms-of-use.md",
+        "https://docs.z.ai/legal-agreement/privacy-policy",
+        "https://docs.z.ai/legal-agreement/terms-of-use",
+        "https://chat.z.ai/legal-agreement/privacy-policy"
+      ]
+    }
+  ]
+}

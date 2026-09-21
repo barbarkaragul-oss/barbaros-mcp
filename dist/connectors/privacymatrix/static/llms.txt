@@ -1,0 +1,49 @@
+PrivacyMatrix MCP — tool contract
+
+Endpoint: POST https://mcp.barbaros.dev/privacymatrix/mcp
+Transport: Streamable HTTP, JSON-RPC 2.0, JSON responses (no SSE)
+Protocol version: 2025-06-18
+Auth: none
+Headers required: Content-Type: application/json, Accept: application/json
+
+All tools are read-only. No authentication, account, or user data is required beyond the arguments below.
+Every answer includes a quote, a source URL, and a verification date; "not legal advice" applies to all output.
+
+---
+
+list_apps()
+  -> 28 apps: id, name, vendor, homepage, yes_count (of 14 questions).
+
+list_questions()
+  -> 14 questions grouped by topic (training, control, retention, sharing, collection), each with id and text.
+
+get_answer(app: string, question: string)
+  app: name, vendor, or id ("ChatGPT", "OpenAI", "chatgpt")
+  question: id or natural language ("no_training_default", "does it train on my chats")
+  -> { value: yes|partial|no|unknown, quote, evidence_url, notes, confidence, verified_at }
+
+app_report(app: string)
+  -> all 14 answers for one app.
+
+compare_apps(apps: string[2..6], questions?: string[])
+  -> markdown table + structured rows; one row per question, one column per app; questions defaults to all 14.
+
+best_apps_for(question: string, value?: "yes"|"partial"|"no"|"unknown" = "yes")
+  -> apps matching that value for that question, each with quote + source.
+
+search(query: string)
+  -> up to 20 cells matching app/vendor/question/notes/quote text.
+
+---
+
+Question ids: no_training_default, training_opt_out, uploads_excluded, business_no_training,
+temporary_chat, memory_controls, user_deletion, data_export, deletion_timeline, no_ads_use,
+no_sale_sharing, human_review_limited, no_precise_location, rights_channel.
+
+App ids: chatgpt, claude, gemini, copilot, perplexity, grok, meta-ai, deepseek, le-chat,
+character-ai, poe, pi, you-com, kimi, qwen-chat, duck-ai, brave-leo, lumo, huggingchat, replika,
+apple-intelligence, alexa-plus, snapchat-my-ai, kagi-assistant, venice, manus, genspark, z-ai.
+
+Full brief: https://mcp.barbaros.dev/privacymatrix/muse.md
+Source: https://github.com/barbarkaragul-oss/barbaros-mcp
+Dataset: https://github.com/barbarkaragul-oss/privacymatrix
