@@ -7,10 +7,14 @@ the form gates on that before showing the steps.
 includes end-to-end testing; a submission against a dead endpoint wastes a review cycle and may need to be
 resubmitted.
 
-**Status: live and verified (2026-09-21).** All checks in EVALS.md pass against
-`https://mcp.barbaros.dev/privacymatrix/mcp`, TLS is issued (Let's Encrypt, expires 2026-12-20), and
-`barbaros.dev/privacy.html` + `barbaros.dev/terms.html` already carry the connector sections referenced
-below. Ready for you to sign in and submit.
+**Status: SUBMITTED (2026-09-21).** Confirmation screen: "Thank you for your submission! We'll review
+PrivacyMatrix and get in touch." First attempt failed twice with a generic `invalid_request` error (no field
+highlighted); the cause was the "API or MCP documentation" field rejecting multiple URLs — see the note below
+that field. A separate `muse.ai/access` "waitlist" message about the Muse consumer app not yet being
+available in the developer's country is unrelated to this submission; the connector directory and its review
+process are not gated by the submitter's own regional access to Muse.
+
+Awaiting Meta's review. No request id was shown on the confirmation screen.
 
 ---
 
@@ -96,9 +100,11 @@ https://mcp.barbaros.dev/privacymatrix/mcp
 **API or MCP documentation**
 ```
 https://mcp.barbaros.dev/privacymatrix/muse.md
-https://mcp.barbaros.dev/privacymatrix/llms.txt
-https://github.com/barbarkaragul-oss/barbaros-mcp
 ```
+**Known issue: this field rejects multiple newline-separated URLs with a silent, unhelpful
+`invalid_request` client-side error** (no field is visibly highlighted; the real error only shows in the
+browser console, not in the UI). Put exactly one URL here — the brief above already links to `llms.txt` and
+the GitHub source, so nothing is lost. Confirmed working 2026-09-21.
 
 **Access requirements**
 ```
