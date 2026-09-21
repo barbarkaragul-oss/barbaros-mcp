@@ -1,6 +1,6 @@
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
-import { fileURLToPath, pathToFileURL } from 'node:url';
+import { fileURLToPath } from 'node:url';
 import express from 'express';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
@@ -189,11 +189,18 @@ async function main() {
         console.log(`barbaros-mcp listening on 127.0.0.1:${PORT}`);
     });
 }
-// Only auto-start the HTTP listener when this file is run directly (production
-// entrypoint / `npm run dev`). When imported by tests, the caller decides when
-// to call initData() and how to listen, so importing this module has no side effect.
-const isMain = Boolean(process.argv[1]) && import.meta.url === pathToFileURL(process.argv[1]).href;
-if (isMain) {
+// Only auto-start the HTTP listener when this module is loaded outside the test
+// runner. Tests import `app` and drive it themselves (see tests/http.test.ts).
+//
+// This deliberately does NOT compare import.meta.url to process.argv[1] to
+// detect "am I the entrypoint" — that check breaks under pm2 in fork mode:
+// pm2 wraps the target script through its own bootstrap/IPC layer, so
+// import.meta.url no longer matches process.argv[1] even though this really
+// is the running app. The symptom was silent: the process stayed alive
+// (kept up by pm2's IPC channel) but never called main(), so it never bound
+// the port and never logged anything. Vitest sets process.env.VITEST for
+// every test process, which is a much simpler and more reliable signal.
+if (!process.env.VITEST) {
     main().catch((err) => {
         console.error('fatal startup error:', err);
         process.exit(1);
