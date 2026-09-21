@@ -7,6 +7,11 @@ the form gates on that before showing the steps.
 includes end-to-end testing; a submission against a dead endpoint wastes a review cycle and may need to be
 resubmitted.
 
+**Status: live and verified (2026-09-21).** All checks in EVALS.md pass against
+`https://mcp.barbaros.dev/privacymatrix/mcp`, TLS is issued (Let's Encrypt, expires 2026-12-20), and
+`barbaros.dev/privacy.html` + `barbaros.dev/terms.html` already carry the connector sections referenced
+below. Ready for you to sign in and submit.
+
 ---
 
 ## Step 1 — Overview
