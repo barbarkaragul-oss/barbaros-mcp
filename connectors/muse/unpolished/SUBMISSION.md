@@ -3,6 +3,10 @@
 Submit at https://muse.ai/platform ("Submit a connector"), signed in with the same Meta account used for
 PrivacyMatrix. **Do not submit until every check in [EVALS.md](./EVALS.md) passes against the live endpoint.**
 
+**Status: live and verified (2026-09-26).** Every check in EVALS.md passes against
+`https://mcp.barbaros.dev/unpolished/mcp`, and barbaros.dev/privacy.html and /terms.html carry the updated
+connector sections. Ready to submit.
+
 Lessons from the PrivacyMatrix submission (2026-09-21):
 - **Work email** must be the address of the Meta account you are signed in with. A different address
   (`info@barbaros.dev`) failed with a generic "Review the highlighted information" error.
