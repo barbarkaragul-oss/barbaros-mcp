@@ -12,7 +12,7 @@ has been reported to hang on it).
 | Connector | Endpoint | Dataset | Status |
 |---|---|---|---|
 | [PrivacyMatrix](./connectors/muse/privacymatrix/) | `/privacymatrix/mcp` | [privacymatrix](https://github.com/barbarkaragul-oss/privacymatrix) — 28 AI apps × 14 privacy questions, quote-sourced | live, submitted 2026-09-21 |
-| [Unpolished](./connectors/muse/unpolished/) | `/unpolished/mcp` | polish check from [unpolished](https://github.com/barbarkaragul-oss/unpolished), rates from [is-it-really-an-ai-tell](https://barbaros.dev/is-it-really-an-ai-tell/) | live |
+| [Unpolished](./connectors/muse/unpolished/) | `/unpolished/mcp` | polish check from [unpolished](https://github.com/barbarkaragul-oss/unpolished), rates from [is-it-really-an-ai-tell](https://barbaros.dev/is-it-really-an-ai-tell/) || live, submitted 2026-09-26 |
 
 Each connector is a separate mount on the same server (`mountMcp` in `src/server.ts`), with its own rate-limit
 bucket and its own static brief.

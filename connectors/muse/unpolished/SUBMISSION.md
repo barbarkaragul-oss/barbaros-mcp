@@ -5,7 +5,10 @@ PrivacyMatrix. **Do not submit until every check in [EVALS.md](./EVALS.md) passe
 
 **Status: live and verified (2026-09-26).** Every check in EVALS.md passes against
 `https://mcp.barbaros.dev/unpolished/mcp`, and barbaros.dev/privacy.html and /terms.html carry the updated
-connector sections. Ready to submit.
+connector sections.
+
+**SUBMITTED 2026-09-26** by the developer, from the signed-in Meta account. Awaiting Meta's review; Meta said
+initial developers are onboarded in waves over several weeks.
 
 Lessons from the PrivacyMatrix submission (2026-09-21):
 - **Work email** must be the address of the Meta account you are signed in with. A different address
@@ -108,4 +111,4 @@ Three checkboxes, including the [Muse Connector Terms](https://muse.ai/platform/
 ## After you click submit
 
 Request id: _(fill in)_
-Submitted on: _(fill in)_
+Submitted on: 2026-09-26
