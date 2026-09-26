@@ -9,6 +9,7 @@ const root = fileURLToPath(new URL('..', import.meta.url));
 const pairs = [
   ['src/connectors/privacymatrix/static', 'dist/connectors/privacymatrix/static'],
   ['src/connectors/privacymatrix/fallback', 'dist/connectors/privacymatrix/fallback'],
+  ['src/connectors/unpolished/static', 'dist/connectors/unpolished/static'],
 ];
 
 for (const [from, to] of pairs) {

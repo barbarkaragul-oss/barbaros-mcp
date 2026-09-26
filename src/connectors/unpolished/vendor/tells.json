@@ -1,0 +1,113 @@
+{
+  "source": "is-it-really-an-ai-tell@146cecc",
+  "measured": "2026-09-18T07:59:05.437Z",
+  "strong": [
+    {
+      "id": "delve",
+      "label": "“delve”",
+      "human": 0.2,
+      "machine": 19.4,
+      "machineArm": "GPT-4"
+    },
+    {
+      "id": "crucial",
+      "label": "“crucial”",
+      "human": 3.5,
+      "machine": 19.4,
+      "machineArm": "Mistral"
+    },
+    {
+      "id": "leverage",
+      "label": "“leverage” as a verb",
+      "human": 5,
+      "machine": 34.7,
+      "machineArm": "Llama"
+    },
+    {
+      "id": "important_to_note",
+      "label": "“it is (also) important to note” / “worth noting”",
+      "human": 0.3,
+      "machine": 12.1,
+      "machineArm": "GPT-3.5 answering questions"
+    },
+    {
+      "id": "rule_of_three",
+      "label": "a three-item list (“and” or “or”; a longer middle item only before a serial comma)",
+      "human": 23,
+      "machine": 84.2,
+      "machineArm": "Claude Opus 5"
+    }
+  ],
+  "myths": [
+    {
+      "id": "tapestry",
+      "label": "“tapestry”",
+      "human": 0,
+      "machine": 0,
+      "note": "it did not appear in the people's texts or in the models' texts"
+    },
+    {
+      "id": "moreover",
+      "label": "“moreover”",
+      "human": 7.7,
+      "machine": 5.3,
+      "note": "people use it at least as often as the models do: 7.7% of people's texts, 5.3% of the models' at most"
+    },
+    {
+      "id": "showcase",
+      "label": "“showcase”",
+      "human": 0.4,
+      "machine": 0,
+      "note": "people use it at least as often as the models do: 0.4% of people's texts, 0% of the models' at most"
+    },
+    {
+      "id": "underscore",
+      "label": "“underscores”",
+      "human": 0,
+      "machine": 0,
+      "note": "it did not appear in the people's texts or in the models' texts"
+    },
+    {
+      "id": "in_todays",
+      "label": "“in today’s …”",
+      "human": 0.1,
+      "machine": 0,
+      "note": "people use it at least as often as the models do: 0.1% of people's texts, 0% of the models' at most"
+    },
+    {
+      "id": "not_x_its_y",
+      "label": "“it’s / this isn’t X, it’s Y”",
+      "human": 1,
+      "machine": 0,
+      "note": "people use it at least as often as the models do: 1% of people's texts, 0% of the models' at most"
+    },
+    {
+      "id": "dive_into",
+      "label": "“dive into” / “let’s explore”",
+      "human": 0,
+      "machine": 0,
+      "note": "it did not appear in the people's texts or in the models' texts"
+    },
+    {
+      "id": "em_dash",
+      "label": "a dash, however it is typed",
+      "human": 23.1,
+      "machine": 10.5,
+      "note": "people use it at least as often as the models do: 23.1% of people's texts, 10.5% of the models' at most"
+    },
+    {
+      "id": "bulleted_bold",
+      "label": "a bulleted list with bold lead-ins",
+      "human": 1.1,
+      "machine": 0,
+      "note": "people use it at least as often as the models do: 1.1% of people's texts, 0% of the models' at most"
+    },
+    {
+      "id": "title_case_headings",
+      "label": "Title Case headings",
+      "human": 0.9,
+      "machine": 0,
+      "note": "people use it at least as often as the models do: 0.9% of people's texts, 0% of the models' at most"
+    }
+  ]
+}

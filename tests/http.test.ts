@@ -114,6 +114,54 @@ describe('HTTP transport', () => {
     expect(res.headers.get('access-control-allow-origin')).toBe('*');
   });
 
+  it('the unpolished connector answers on its own path, with its own name', async () => {
+    const res = await fetch(`${baseUrl}/unpolished/mcp`, {
+      method: 'POST',
+      headers: jsonHeaders,
+      body: JSON.stringify({
+        jsonrpc: '2.0',
+        id: 1,
+        method: 'initialize',
+        params: { protocolVersion: '2025-06-18', capabilities: {}, clientInfo: { name: 'test', version: '1' } },
+      }),
+    });
+    expect(res.status).toBe(200);
+    const body = await res.json();
+    expect(body.result.serverInfo.name).toBe('unpolished');
+
+    const call = await fetch(`${baseUrl}/unpolished/mcp`, {
+      method: 'POST',
+      headers: jsonHeaders,
+      body: JSON.stringify({
+        jsonrpc: '2.0',
+        id: 2,
+        method: 'tools/call',
+        params: { name: 'polish_check', arguments: { text: 'We delve into the details.' } },
+      }),
+    });
+    const out = await call.json();
+    expect(out.result.structuredContent.habits[0].id).toBe('delve');
+
+    expect((await fetch(`${baseUrl}/unpolished/mcp`)).status).toBe(405);
+    expect((await fetch(`${baseUrl}/unpolished/muse.md`)).status).toBe(200);
+    expect((await fetch(`${baseUrl}/unpolished/llms.txt`)).status).toBe(200);
+    expect((await fetch(`${baseUrl}/unpolished/`)).status).toBe(200);
+  });
+
+  it('behind nginx, each client gets its own rate-limit bucket (trust proxy)', async () => {
+    // every request reaches the app from 127.0.0.1; without trust proxy they all shared one bucket
+    const call = (ip: string) =>
+      fetch(`${baseUrl}/unpolished/mcp`, {
+        method: 'POST',
+        headers: { ...jsonHeaders, 'X-Forwarded-For': ip },
+        body: JSON.stringify({ jsonrpc: '2.0', id: 1, method: 'tools/list' }),
+      });
+    const statuses: number[] = [];
+    for (let i = 0; i < 61; i++) statuses.push((await call('203.0.113.7')).status);
+    expect(statuses.at(-1)).toBe(429);
+    expect((await call('203.0.113.8')).status).toBe(200);
+  });
+
   it('rate limits after 60 requests per minute on the MCP endpoint', async () => {
     const call = () =>
       fetch(mcpUrl(), { method: 'POST', headers: jsonHeaders, body: JSON.stringify({ jsonrpc: '2.0', id: 1, method: 'tools/list' }) });

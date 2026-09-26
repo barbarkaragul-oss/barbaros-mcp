@@ -1,6 +1,6 @@
 {
   "name": "barbaros-mcp",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "type": "module",
   "description": "Hosted MCP connectors for barbaros.dev (Meta Muse Connector Platform)",
   "license": "MIT",

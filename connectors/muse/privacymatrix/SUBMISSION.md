@@ -114,6 +114,8 @@ AI assistant apps, 14 privacy questions, consumer plan with default settings, as
 vendors' own documents.
 ```
 
+_Note (2026-09-26): the rate limit in the text above is what was submitted. It was raised afterwards to about 10 requests/second per client, because Muse calls from a few shared Meta egress addresses; the live brief says so. Being more lenient than declared does not change anything for reviewers._
+
 **Authentication methods**: leave `API keys`, `OAuth with PKCE`, and `Other` all unchecked. There is no
 authentication for any tool.
 

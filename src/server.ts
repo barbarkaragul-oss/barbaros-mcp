@@ -1,19 +1,24 @@
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import express, { type NextFunction, type Request, type Response } from 'express';
+import express, { type NextFunction, type Request, type RequestHandler, type Response } from 'express';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
 import { initData, getData } from './connectors/privacymatrix/data.js';
 import { registerPrivacyMatrixTools } from './connectors/privacymatrix/tools.js';
+import { registerUnpolishedTools } from './connectors/unpolished/tools.js';
+import tells from './connectors/unpolished/vendor/tells.json' with { type: 'json' };
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const STATIC_DIR = path.join(__dirname, 'connectors', 'privacymatrix', 'static');
 const PORT = Number(process.env.PORT ?? 8101);
-const SERVER_VERSION = '0.1.0';
+const SERVER_VERSION = '0.2.0';
 
 const app = express();
 app.disable('x-powered-by');
+// nginx on the same host proxies every request, so without this every client
+// looks like 127.0.0.1 and the per-client rate limit below becomes one shared
+// bucket for the whole world. Trust X-Forwarded-For only from loopback.
+app.set('trust proxy', 'loopback');
 app.use(express.json({ limit: '64kb' }));
 
 // express.json's default error handler leaks stack traces and file paths in an
@@ -46,42 +51,43 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   next();
 });
 
-// ---- minimal per-IP rate limit (defense in depth; nginx also limits) ----
+// ---- per-client rate limit, one bucket per connector (nginx also limits) ----
+// Muse calls from a small set of Meta egress addresses, so this is generous:
+// it only exists to stop a runaway client, and matches nginx's 10 r/s.
 const RATE_LIMIT_WINDOW_MS = 60_000;
-const RATE_LIMIT_MAX = 60;
-const hits = new Map<string, { count: number; resetAt: number }>();
+const RATE_LIMIT_MAX = Number(process.env.RATE_LIMIT_PER_MIN ?? 600);
 
-function rateLimit(req: Request, res: Response, next: NextFunction) {
-  const ip = req.ip ?? 'unknown';
-  const now = Date.now();
-  const entry = hits.get(ip);
-  if (!entry || now > entry.resetAt) {
-    hits.set(ip, { count: 1, resetAt: now + RATE_LIMIT_WINDOW_MS });
+function makeRateLimit(): RequestHandler {
+  const hits = new Map<string, { count: number; resetAt: number }>();
+  setInterval(() => {
+    const now = Date.now();
+    for (const [ip, entry] of hits) if (now > entry.resetAt) hits.delete(ip);
+  }, RATE_LIMIT_WINDOW_MS).unref();
+
+  return (req, res, next) => {
+    const ip = req.ip ?? 'unknown';
+    const now = Date.now();
+    const entry = hits.get(ip);
+    if (!entry || now > entry.resetAt) {
+      hits.set(ip, { count: 1, resetAt: now + RATE_LIMIT_WINDOW_MS });
+      next();
+      return;
+    }
+    entry.count += 1;
+    if (entry.count > RATE_LIMIT_MAX) {
+      res.setHeader('Retry-After', Math.ceil((entry.resetAt - now) / 1000).toString());
+      res.status(429).json({ error: 'rate_limited', message: 'Too many requests, slow down.' });
+      return;
+    }
     next();
-    return;
-  }
-  entry.count += 1;
-  if (entry.count > RATE_LIMIT_MAX) {
-    res.setHeader('Retry-After', Math.ceil((entry.resetAt - now) / 1000).toString());
-    res.status(429).json({ error: 'rate_limited', message: 'Too many requests, slow down.' });
-    return;
-  }
-  next();
+  };
 }
-
-// periodic cleanup so the map doesn't grow forever
-setInterval(() => {
-  const now = Date.now();
-  for (const [ip, entry] of hits) {
-    if (now > entry.resetAt) hits.delete(ip);
-  }
-}, RATE_LIMIT_WINDOW_MS).unref();
 
 function accessLog(req: Request, res: Response, next: NextFunction) {
   const start = Date.now();
   res.on('finish', () => {
     const ms = Date.now() - start;
-    // deliberately no request body / query args in the log
+    // deliberately no request body / query args in the log: a polish check body is the user's own writing
     console.log(`${new Date().toISOString()} ${req.method} ${req.path} ${res.statusCode} ${ms}ms`);
   });
   next();
@@ -106,86 +112,108 @@ function normalizeAcceptHeader(req: Request) {
   }
 }
 
-// ---- PrivacyMatrix MCP endpoint (stateless streamable HTTP, JSON responses) ----
-app.post('/privacymatrix/mcp', rateLimit, async (req: Request, res: Response) => {
-  try {
-    normalizeAcceptHeader(req);
-    const server = new McpServer(
-      { name: 'privacymatrix', version: SERVER_VERSION },
-      {
-        instructions:
-          'PrivacyMatrix answers privacy questions about 28 consumer AI assistant apps (does it train on my ' +
-          'chats, can I delete my data, is there an incognito mode, etc). Every answer quotes the vendor\'s own ' +
-          'privacy policy or help pages, with the source URL and the date it was last verified. Always show the ' +
-          'quote and the source URL in your reply, and say this is not legal advice.',
-      }
-    );
-    registerPrivacyMatrixTools(server);
+interface Connector {
+  /** URL segment, also the directory under src/connectors/ that holds static/ */
+  name: string;
+  instructions: string;
+  register: (server: McpServer) => void;
+}
 
-    const transport = new StreamableHTTPServerTransport({
-      sessionIdGenerator: undefined, // stateless: no session management
-      enableJsonResponse: true, // single JSON body, no SSE (required by Muse's egress proxy)
-    });
+/** Stateless streamable HTTP, JSON responses: a fresh server + transport per POST. */
+function mountMcp(c: Connector) {
+  const endpoint = `/${c.name}/mcp`;
 
-    res.on('close', () => {
-      transport.close();
-      server.close();
-    });
-
-    await server.connect(transport);
-    await transport.handleRequest(req, res, req.body);
-  } catch (err) {
-    console.error('[privacymatrix/mcp] error:', err);
-    if (!res.headersSent) {
-      res.status(500).json({
-        jsonrpc: '2.0',
-        error: { code: -32603, message: 'Internal server error' },
-        id: null,
-      });
-    }
-  }
-});
-
-// GET/DELETE are not supported in stateless mode; Muse's Hatch proxy treats a
-// clean 405 (rather than a hang or connection reset) as "the host is up".
-app.get('/privacymatrix/mcp', (_req: Request, res: Response) => {
-  res.status(405).json({
-    jsonrpc: '2.0',
-    error: { code: -32000, message: 'Method not allowed. POST JSON-RPC requests to this endpoint.' },
-    id: null,
-  });
-});
-app.delete('/privacymatrix/mcp', (_req: Request, res: Response) => {
-  res.status(405).json({
-    jsonrpc: '2.0',
-    error: { code: -32000, message: 'Method not allowed. This server is stateless; there is no session to delete.' },
-    id: null,
-  });
-});
-
-// ---- static/reference endpoints for reviewers and for Muse itself ----
-async function serveStatic(fileName: string, contentType: string) {
-  return async (_req: Request, res: Response) => {
+  app.post(endpoint, makeRateLimit(), async (req: Request, res: Response) => {
     try {
-      const text = await readFile(path.join(STATIC_DIR, fileName), 'utf-8');
-      res.setHeader('Content-Type', contentType);
+      normalizeAcceptHeader(req);
+      const server = new McpServer({ name: c.name, version: SERVER_VERSION }, { instructions: c.instructions });
+      c.register(server);
+      const transport = new StreamableHTTPServerTransport({
+        sessionIdGenerator: undefined, // stateless: no session management
+        enableJsonResponse: true, // single JSON body, no SSE (required by Muse's egress proxy)
+      });
+      res.on('close', () => {
+        transport.close();
+        server.close();
+      });
+      await server.connect(transport);
+      await transport.handleRequest(req, res, req.body);
+    } catch (err) {
+      console.error(`[${endpoint}] error:`, err);
+      if (!res.headersSent) {
+        res.status(500).json({ jsonrpc: '2.0', error: { code: -32603, message: 'Internal server error' }, id: null });
+      }
+    }
+  });
+
+  // GET/DELETE are not supported in stateless mode; Muse's Hatch proxy treats a
+  // clean 405 (rather than a hang or connection reset) as "the host is up".
+  app.get(endpoint, (_req: Request, res: Response) => {
+    res.status(405).json({
+      jsonrpc: '2.0',
+      error: { code: -32000, message: 'Method not allowed. POST JSON-RPC requests to this endpoint.' },
+      id: null,
+    });
+  });
+  app.delete(endpoint, (_req: Request, res: Response) => {
+    res.status(405).json({
+      jsonrpc: '2.0',
+      error: { code: -32000, message: 'Method not allowed. This server is stateless; there is no session to delete.' },
+      id: null,
+    });
+  });
+
+  // static/reference pages for reviewers and for Muse itself
+  const dir = path.join(__dirname, 'connectors', c.name, 'static');
+  const serve = (file: string, type: string) => async (_req: Request, res: Response) => {
+    try {
+      const text = await readFile(path.join(dir, file), 'utf-8');
+      res.setHeader('Content-Type', type);
       res.setHeader('Cache-Control', 'public, max-age=300');
       res.send(text);
     } catch (err) {
-      console.error(`[static] failed to read ${fileName}:`, err);
+      console.error(`[static] failed to read ${c.name}/${file}:`, err);
       res.status(500).send('Internal server error');
     }
   };
+  app.get(`/${c.name}/`, serve('index.html', 'text/html; charset=utf-8'));
+  app.get(`/${c.name}/muse.md`, serve('muse.md', 'text/markdown; charset=utf-8'));
+  app.get(`/${c.name}/llms.txt`, serve('llms.txt', 'text/plain; charset=utf-8'));
 }
 
-app.get('/privacymatrix/', await serveStatic('index.html', 'text/html; charset=utf-8'));
-app.get('/privacymatrix/muse.md', await serveStatic('muse.md', 'text/markdown; charset=utf-8'));
-app.get('/privacymatrix/llms.txt', await serveStatic('llms.txt', 'text/plain; charset=utf-8'));
+mountMcp({
+  name: 'privacymatrix',
+  instructions:
+    'PrivacyMatrix answers privacy questions about 28 consumer AI assistant apps (does it train on my ' +
+    "chats, can I delete my data, is there an incognito mode, etc). Every answer quotes the vendor's own " +
+    'privacy policy or help pages, with the source URL and the date it was last verified. Always show the ' +
+    'quote and the source URL in your reply, and say this is not legal advice.',
+  register: registerPrivacyMatrixTools,
+});
+
+mountMcp({
+  name: 'unpolished',
+  instructions:
+    'Unpolished checks a piece of writing for the habits that models use far more often than people, using ' +
+    'measured rates rather than a model. It reports how polished or machine-like a text reads, never who wrote ' +
+    'it. Always pass on its note that a match is not evidence that anyone used AI, and show the rates for people ' +
+    'alongside the rates for models. The text is checked in memory and not stored.',
+  register: registerUnpolishedTools,
+});
 
 app.get('/healthz', (_req: Request, res: Response) => {
   try {
     const data = getData();
-    res.json({ ok: true, data_generated_at: data.generated_at, data_source: data.source, loaded_at: data.loaded_at });
+    res.json({
+      ok: true,
+      version: SERVER_VERSION,
+      privacymatrix: { data_generated_at: data.generated_at, data_source: data.source, loaded_at: data.loaded_at },
+      unpolished: { source: tells.source, measured: tells.measured },
+      // kept flat for anything that already reads these fields
+      data_generated_at: data.generated_at,
+      data_source: data.source,
+      loaded_at: data.loaded_at,
+    });
   } catch {
     res.status(503).json({ ok: false, error: 'data not loaded' });
   }
@@ -208,7 +236,7 @@ export { app };
 async function main() {
   await initData();
   app.listen(PORT, '127.0.0.1', () => {
-    console.log(`barbaros-mcp listening on 127.0.0.1:${PORT}`);
+    console.log(`barbaros-mcp ${SERVER_VERSION} listening on 127.0.0.1:${PORT}`);
   });
 }
 

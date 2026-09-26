@@ -36,7 +36,7 @@ consumer plan with default settings. Always show the user the quote and the sour
 | Protocol version | 2025-06-18 |
 | Auth | None. Do not ask the user for credentials. |
 | Allowed hosts | `mcp.barbaros.dev`, `barbaros.dev` |
-| Rate limit | ~60 requests/minute per client; 429 with `Retry-After` on excess |
+| Rate limit | ~600 requests/minute (10/second) per client; 429 with `Retry-After` on excess |
 
 ### Transport rules (read this if the connection seems to hang)
 

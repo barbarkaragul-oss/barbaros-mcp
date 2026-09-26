@@ -1,0 +1,41 @@
+Unpolished MCP — tool contract
+
+Endpoint: POST https://mcp.barbaros.dev/unpolished/mcp
+Transport: Streamable HTTP, JSON-RPC 2.0, JSON responses (no SSE)
+Protocol version: 2025-06-18
+Auth: none
+Headers required: Content-Type: application/json, Accept: application/json
+
+Both tools are read-only and use no model. Neither rewrites text. The text sent to polish_check is checked in
+memory and not stored or logged. English text only.
+
+It measures writing habits, not authorship: it cannot tell whether a text was written by AI, and a match is
+not evidence that anyone used AI. Always show the rate for people next to the rate for models.
+
+---
+
+polish_check(text: string, 1..20000 chars)
+  -> level: raw | a-little | polished | glossy (with a name and a one-line meaning)
+     words, total
+     habits[]: id, label, count, people_pct, model_pct, model, excerpts[]
+     myths[]: id, label, count, note
+     source, measured, method, note
+
+list_tells(query?: string)
+  -> habits[]: id, label, people_pct, model_pct, model
+     myths[]: id, label, people_pct, model_pct, note
+     query filters by word, for example "delve", "moreover", "dash"
+
+---
+
+people_pct: the highest share among the samples of people's writing that contain the habit.
+model_pct: the highest share among the models' writing, and model names the model with that share.
+A habit is listed when models use it at least 8 points more than people and at least twice as often; a myth
+when people use it at least as often as models do.
+
+Measured habits: delve, crucial, leverage (as a verb), "it is important to note" / "worth noting",
+three-item lists. Myths include: moreover, the long dash, tapestry, showcase, underscore.
+
+Measurement, data and method: https://barbaros.dev/is-it-really-an-ai-tell/
+Full brief: https://mcp.barbaros.dev/unpolished/muse.md
+Source: https://github.com/barbarkaragul-oss/barbaros-mcp

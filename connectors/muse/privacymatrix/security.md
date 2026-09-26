@@ -31,7 +31,8 @@ beyond process memory.
 ## Logging
 
 Access logs record timestamp, HTTP method, path, status code, and response time. Tool arguments and response
-bodies are never logged. Logs are retained 14 days (standard nginx rotation) and are used only for abuse
+bodies are never logged. nginx access logs (IP address, path, status) are kept 14 days; application logs
+(time, path, status, duration; no IP address, no content) are kept up to 30 days. Both are used only for abuse
 detection and reliability.
 
 ## Availability integrity (Muse Connector Terms §4.1 — accuracy)
@@ -62,7 +63,7 @@ static docs (`/privacymatrix/`, `/privacymatrix/muse.md`, `/privacymatrix/llms.t
 
 ## Abuse
 
-Public, stateless catalogue. A per-IP rate limit (about 60 requests/minute) applies at both the application
+Public, stateless catalogue. A per-client rate limit (about 10 requests/second) applies at both the application
 and nginx layers; excess requests receive `429` with `Retry-After`. Oversized request bodies (>64 KB) are
 rejected with `413`. The connector does not scrape or forward requests to any third party.
 
