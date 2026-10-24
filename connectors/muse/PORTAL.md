@@ -70,6 +70,10 @@ Open "Start" to see what it accepts. Keep every detail identical to the listing 
 ### Both
 
 - **Security incidents:** would be reported to vendor-incident@meta.com within 48 hours (§4.8).
+- **Requests from authorities:** handled by legal review before any disclosure, as stated on
+  barbaros.dev/privacy.html, section "Requests from authorities and third parties" (added 2026-10-24). The
+  questionnaire was submitted with "No documented process" before this section existed; "Legal review" now
+  matches the policy.
 - **Revocation:** there are no accounts or tokens, so there is nothing to revoke; a user stops all
   processing by not calling the connector.
 
