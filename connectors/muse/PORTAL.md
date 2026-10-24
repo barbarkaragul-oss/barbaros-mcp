@@ -41,9 +41,8 @@ Open "Start" to see what it accepts. Keep every detail identical to the listing 
 - **How it is protected:** HTTPS only (plain HTTP is redirected to HTTPS). The request is answered in memory and discarded. No
   database, no user accounts, no credentials. Request bodies are never logged.
 - **Who it is shared with:** no one. No third parties, no analytics, no advertising.
-- **How long it is kept:** request contents are not kept at all. Operational logs: nginx access logs (IP
-  address, path, status) 14 days; application logs (time, path, status, duration; no IP, no content) up to
-  30 days.
+- **How long it is kept:** nothing personal is kept. Request contents are never written, and since 2026-10-24
+  no IP address is logged (nginx uses an IP-free log format). Logs hold only time, path, status and duration.
 - **How it is deleted:** request contents are never written; logs rotate and are deleted automatically
   after the periods above.
 - **Secondary use:** none. No sale, no advertising, no profiling, no model training.
@@ -62,8 +61,8 @@ Open "Start" to see what it accepts. Keep every detail identical to the listing 
   or by nginx.
 - **Who it is shared with:** no one. The response goes back only to the caller and contains counts and up
   to three short excerpts of the user's own text around each match.
-- **How long it is kept:** the text is discarded as soon as the response is sent. Operational logs as for
-  PrivacyMatrix (nginx 14 days with IP; application up to 30 days without IP or content).
+- **How long it is kept:** the text is discarded as soon as the response is sent; no IP address is logged
+  (as for PrivacyMatrix).
 - **How it is deleted:** the text is never written to disk; logs rotate automatically.
 - **Secondary use:** none. No sale, no advertising, no profiling, no model training.
 

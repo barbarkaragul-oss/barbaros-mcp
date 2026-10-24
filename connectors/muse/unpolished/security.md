@@ -27,9 +27,9 @@ None. There is nothing to put in Muse's credential store, and the connector neve
 ## Logging
 
 The application logs timestamp, method, path, status code and response time. Request bodies, and so the
-submitted text, are never logged, by the application or by nginx. nginx access logs (IP address, path, status)
-are kept 14 days; application logs (time, path, status, duration; no IP address, no content) up to 30 days.
-Both are used only for security and reliability.
+submitted text, are never logged, by the application or by nginx. Since 2026-10-24 no IP address is logged anywhere: nginx logs for mcp.barbaros.dev use an IP-free format
+(time, method, path, status, bytes, duration) and the application logs time, path, status and duration.
+The rate limiter holds the client IP in memory for up to a minute and never writes it.
 
 ## Privacy notice (§4.3(c))
 

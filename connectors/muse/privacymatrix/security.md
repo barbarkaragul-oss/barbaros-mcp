@@ -31,9 +31,9 @@ beyond process memory.
 ## Logging
 
 Access logs record timestamp, HTTP method, path, status code, and response time. Tool arguments and response
-bodies are never logged. nginx access logs (IP address, path, status) are kept 14 days; application logs
-(time, path, status, duration; no IP address, no content) are kept up to 30 days. Both are used only for abuse
-detection and reliability.
+bodies are never logged. Since 2026-10-24 no IP address is logged anywhere: nginx logs for mcp.barbaros.dev use an IP-free format
+(time, method, path, status, bytes, duration) and the application logs time, path, status and duration.
+The rate limiter holds the client IP in memory for up to a minute and never writes it. Logs are used only for reliability.
 
 ## Availability integrity (Muse Connector Terms §4.1 — accuracy)
 
