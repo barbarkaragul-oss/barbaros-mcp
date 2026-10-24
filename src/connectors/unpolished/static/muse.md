@@ -98,6 +98,29 @@ used to accuse anyone.
 3. Never ask for credentials; there are none.
 4. The text is checked in memory and not stored or logged. Do not tell the user otherwise.
 
+## Value beyond the browser
+
+The browser can show lists of "words that give away AI writing", but those lists are mostly unmeasured, and
+some popular entries ("moreover", the long dash) are used by people at least as often as by models. Unpolished
+runs a measured check on the user's own text in one step: which habits it contains, where, and how often
+people and models use each one, from a public measurement. In Muse the user gets this inside the conversation,
+without installing anything or pasting the text into another site.
+
+## Tool documentation
+
+| Tool | Classification (§3.2) | Side effects | Inputs | Output |
+|---|---|---|---|---|
+| polish_check | Read | none | `text` (1–20,000 characters, English) | level, habits with people/model rates and excerpts, myths, note |
+| list_tells | Read | none | optional `query` | measured habits and myths with rates |
+
+Neither tool rewrites text, stores it, sends it anywhere or changes anything; neither is a write or a
+sensitive write. No account, scope or test credential exists.
+
+**Status and errors:** every successful call returns text plus `structuredContent`. Text over 20,000
+characters or an empty text returns an MCP tool error with `isError: true`. An unknown `query` returns a
+normal answer saying it is not a measured habit. HTTP 413 for bodies over 64 KB, HTTP 429 with `Retry-After`
+above about 10 requests/second per client, HTTP 405 for GET on the endpoint.
+
 ## Reviewer links
 
 | What | URL |

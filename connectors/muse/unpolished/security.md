@@ -57,4 +57,4 @@ Text is limited to 20,000 characters and request bodies to 64 KB (413 above). A 
 ## Security contact
 
 https://barbaros.dev/#contact, or the email of the Muse developer account. Incidents involving user data
-would be reported to Meta within 48 hours (§4.3(b)).
+would be reported to vendor-incident@meta.com within 48 hours (Terms §4.3(b), docs §4.8).

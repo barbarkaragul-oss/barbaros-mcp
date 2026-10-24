@@ -114,6 +114,34 @@ user's own request implies (an app name, a question, or a search string).
 If a cell's value is `unknown`, say the vendor's documents do not address the question — never state or imply
 "no." This is a hard rule from the underlying dataset's own methodology.
 
+## Value beyond the browser
+
+Answering "does ChatGPT train on my chats, and can I opt out?" from the browser means finding the right
+pages across a vendor's privacy policy and help centre, reading them, and repeating that for every app.
+Vendors word the same practice differently and change pages without notice. PrivacyMatrix gives the answer
+for 28 apps in one call, each with the exact quoted sentence, its source URL and the date it was last
+re-verified (weekly), and it can compare apps side by side on 14 questions. The information is the outcome.
+
+## Tool documentation
+
+| Tool | Classification (§3.2) | Side effects | Inputs | Output |
+|---|---|---|---|---|
+| list_apps | Read | none | — | apps with vendor, homepage, yes-count |
+| list_questions | Read | none | — | 14 questions by group |
+| get_answer | Read | none | `app`, `question` (names or natural language) | value, quote, source URL, verified date |
+| app_report | Read | none | `app` | all 14 answers for one app |
+| compare_apps | Read | none | `apps` (2–6), optional `questions` | table plus per-cell sources |
+| best_apps_for | Read | none | `question`, optional `value` | apps with that answer, with quotes |
+| search | Read | none | `query` (2+ characters) | up to 20 matching cells |
+
+No tool writes, sends, buys or changes anything; none is a sensitive write. No account, scope or test
+credential exists.
+
+**Status and errors:** every successful call returns text plus `structuredContent`. Invalid arguments (for
+example fewer than two apps) return an MCP tool error with `isError: true`. An unknown app or question
+returns a normal answer listing the valid ones. HTTP 413 for bodies over 64 KB, HTTP 429 with `Retry-After`
+above about 10 requests/second per client, HTTP 405 for GET on the endpoint.
+
 ## Reviewer links
 
 | What | URL |

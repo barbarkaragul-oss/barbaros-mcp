@@ -72,3 +72,8 @@ rejected with `413`. The connector does not scrape or forward requests to any th
 The dataset summarizes what vendors publish, as of the verification date shown, for the consumer plan with
 default settings. Every tool response says so. This connector does not practice law, and its tool
 descriptions instruct Muse to present it that way.
+
+## Incident response
+
+A security incident involving user data would be reported to vendor-incident@meta.com within 48 hours
+(Muse docs §4.8), with cooperation on any investigation.
