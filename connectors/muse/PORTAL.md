@@ -101,7 +101,7 @@ permissions. None is a write or a sensitive write. No tool has side effects.
 
 Errors and limits (both): invalid arguments return an MCP tool error (`isError: true`) with a message;
 unknown apps or questions return a helpful text answer listing valid ones; bodies over 64 KB get HTTP 413;
-about 10 requests/second per client, then HTTP 429 with `Retry-After`; GET on the endpoint returns 405 (the
+about 50 requests/second per client (bursts of 100), then HTTP 429 with `Retry-After`; GET on the endpoint returns 405 (the
 server is stateless). Unpolished rejects text over 20,000 characters with a tool error.
 
 If the portal has a free-text box, paste:

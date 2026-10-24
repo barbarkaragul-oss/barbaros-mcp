@@ -41,7 +41,7 @@ them or now reads as machine-written.
 | Auth | None. Do not ask the user for credentials. |
 | Language | English text only (the measured habits are English words and patterns) |
 | Text size | Up to 20,000 characters per check |
-| Rate limit | ~600 requests/minute (10/second) per client; 429 with `Retry-After` on excess |
+| Rate limit | ~3,000 requests/minute (50/second, bursts of 100) per client; 429 with `Retry-After` on excess |
 | Allowed hosts | `mcp.barbaros.dev`, `barbaros.dev` |
 
 ### Transport rules (read this if the connection seems to hang)
@@ -119,7 +119,7 @@ sensitive write. No account, scope or test credential exists.
 **Status and errors:** every successful call returns text plus `structuredContent`. Text over 20,000
 characters or an empty text returns an MCP tool error with `isError: true`. An unknown `query` returns a
 normal answer saying it is not a measured habit. HTTP 413 for bodies over 64 KB, HTTP 429 with `Retry-After`
-above about 10 requests/second per client, HTTP 405 for GET on the endpoint.
+above about 50 requests/second per client, HTTP 405 for GET on the endpoint.
 
 ## Reviewer links
 

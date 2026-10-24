@@ -36,7 +36,7 @@ consumer plan with default settings. Always show the user the quote and the sour
 | Protocol version | 2025-06-18 |
 | Auth | None. Do not ask the user for credentials. |
 | Allowed hosts | `mcp.barbaros.dev`, `barbaros.dev` |
-| Rate limit | ~600 requests/minute (10/second) per client; 429 with `Retry-After` on excess |
+| Rate limit | ~3,000 requests/minute (50/second, bursts of 100) per client; 429 with `Retry-After` on excess |
 
 ### Transport rules (read this if the connection seems to hang)
 
@@ -140,7 +140,7 @@ credential exists.
 **Status and errors:** every successful call returns text plus `structuredContent`. Invalid arguments (for
 example fewer than two apps) return an MCP tool error with `isError: true`. An unknown app or question
 returns a normal answer listing the valid ones. HTTP 413 for bodies over 64 KB, HTTP 429 with `Retry-After`
-above about 10 requests/second per client, HTTP 405 for GET on the endpoint.
+above about 50 requests/second per client, HTTP 405 for GET on the endpoint.
 
 ## Reviewer links
 

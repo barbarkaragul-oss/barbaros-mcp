@@ -52,10 +52,11 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 });
 
 // ---- per-client rate limit, one bucket per connector (nginx also limits) ----
-// Muse calls from a small set of Meta egress addresses, so this is generous:
-// it only exists to stop a runaway client, and matches nginx's 10 r/s.
+// Muse calls on behalf of many users from a small set of Meta egress addresses,
+// so this is generous: it only exists to stop a runaway client, and matches
+// nginx's 50 r/s (burst 100). Raised from 600/min on 2026-10-24.
 const RATE_LIMIT_WINDOW_MS = 60_000;
-const RATE_LIMIT_MAX = Number(process.env.RATE_LIMIT_PER_MIN ?? 600);
+const RATE_LIMIT_MAX = Number(process.env.RATE_LIMIT_PER_MIN ?? 3000);
 
 function makeRateLimit(): RequestHandler {
   const hits = new Map<string, { count: number; resetAt: number }>();

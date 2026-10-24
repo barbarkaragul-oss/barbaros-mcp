@@ -137,3 +137,5 @@ same URLs used in this submission.
 
 Request id: _(fill in after submitting)_
 Submitted on: _(fill in)_
+
+_Note (2026-10-24): the rate limit was raised again, to about 50 requests/second per client (bursts of 100), ahead of directory listing._

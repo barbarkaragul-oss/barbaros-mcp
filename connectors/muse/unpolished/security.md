@@ -52,7 +52,7 @@ accuse anyone. It offers no way to change a text.
 ## Abuse
 
 Text is limited to 20,000 characters and request bodies to 64 KB (413 above). A per-client rate limit of about
-10 requests per second applies in the application and in nginx, with 429 and `Retry-After`.
+50 requests per second (bursts of 100) applies in the application and in nginx, with 429 and `Retry-After`.
 
 ## Security contact
 

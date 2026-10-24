@@ -112,3 +112,5 @@ Three checkboxes, including the [Muse Connector Terms](https://muse.ai/platform/
 
 Request id: _(fill in)_
 Submitted on: 2026-09-26
+
+_Note (2026-10-24): the rate limit was raised again, to about 50 requests/second per client (bursts of 100), ahead of directory listing._

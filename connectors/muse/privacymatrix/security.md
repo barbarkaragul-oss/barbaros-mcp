@@ -63,7 +63,7 @@ static docs (`/privacymatrix/`, `/privacymatrix/muse.md`, `/privacymatrix/llms.t
 
 ## Abuse
 
-Public, stateless catalogue. A per-client rate limit (about 10 requests/second) applies at both the application
+Public, stateless catalogue. A per-client rate limit (about 50 requests/second, bursts of 100) applies at both the application
 and nginx layers; excess requests receive `429` with `Retry-After`. Oversized request bodies (>64 KB) are
 rejected with `413`. The connector does not scrape or forward requests to any third party.
 
